@@ -245,6 +245,10 @@ deactivate
 cd /var/log/apache2/
 cat error.log
 ```
+- Or
+```sh
+cat /var/log/apache2/error.log
+```
 
 - You can Clear Error Logs (Optional)
 ```sh
@@ -269,7 +273,49 @@ WSGIApplicationGroup %{GLOBAL}
 sudo service apache2 restart
 ```
 
+---
+
+#### Fixing INTERNAL SERVER ERROR | WSGI errors
+
+> If you see error.log containing WSGI errors, that probably mean you need to make migrations and static files.
+
+- Go to your projectfile
+```sh
+cd /var/www/ProjectFileName
+```
+- Install mysqlclient (if you use mysql database)
+- Create the database mentioned in your `ProjectFileName/InnerProjectFile/settings.py` 
+- Run the below command
+```sh
+python manage.py collectstatic
+```
+- Make migrations
+```sh
+python manage.py makemigrations
+
+python manage.py migrate
+```
+---
+
+#### `Fixing DisallowedHost at` Error
+
+- Go to settings.py inside your inner project file
+```sh
+cd /var/www/ProjectName/InnerProjectName/settings.py
+```
+- Inside the `ALLOWED_HOSTS = []` add your url
+```
+ALLOWED_HOSTS = ['successjobs.successscholar.in']
+```
+
 ## SSL Certificate Installation
+
+- Install SSL Certificate using `certbot`
+```sh
+sudo apt install certbot
+
+certbot
+```
 
 > If you face error "Name duplicates previous WSGI daemon definition" while installing SSL Certificate for your domain then comment below code then try to install SSL Certificate again and after successful installation un-comment it 
 ```sh
