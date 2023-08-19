@@ -38,7 +38,8 @@ Example:- scp -P 22 dynamic.zip root@62.72.29.52:
 Syntax:- ssh -p PORT USERNAME@HOSTIP
 Example:- ssh -p 22 root@62.72.29.52
 ```
-#### Note:- Run Below Commands on Your Remote Server Linux Machine or VPS, Not on Your Local Windows Machine
+> Note:- Run Below Commands on Your Remote Server Linux Machine or VPS, Not on Your Local Windows Machine
+
 - Verify that all required softwares are installed
 ```sh
   apache2 -v
