@@ -22,26 +22,21 @@ pip freeze > requirements.txt
 $ pipreqs /home/project/location
 ```
 
-> `Note: Pipreqs is generally recommended, but if you don't have it installed in the sysmte, do so by using:` 
-```
-pip install pipreqs
-```
-
+> *Note: Pipreqs is generally recommended, but if you don't have it installed in the sysmte, do so by using:*```pip install pipreqs```
 - Deactivate Virtual Env
-
 - On Local Windows Machine Make Your Project Folder a Zip File using any of the software e.g. winzip
 - Open Command Prompt
 - Copy Zip File from Local Windows Machine to Linux Remote Server
 ```sh
 Syntax:- scp -P Port_number Source_File_Path Destination_Path
-Example:- scp -P 22 miniblog.zip raj@216.32.44.12:
+Example:- scp -P 22 dynamic.zip root@62.72.29.52:
 ```
 - Copied Successfully
 
 - Get Access to Remote Server via SSH
 ```sh
 Syntax:- ssh -p PORT USERNAME@HOSTIP
-Example:- ssh -p 22 raj@216.32.44.12
+Example:- ssh -p 22 root@62.72.29.52
 ```
 #### Note:- Run Below Commands on Your Remote Server Linux Machine or VPS, Not on Your Local Windows Machine
 - Verify that all required softwares are installed
@@ -50,8 +45,6 @@ Example:- ssh -p 22 raj@216.32.44.12
   python --version
   apache2ctl -M
   pip --version
-- SQLite is Included with Python
-  python -c "import sqlite3; print(sqlite3.sqlite_version)"
 ```
 - If Required Softwares and Modules are not Installed then Install them:
 ```sh
@@ -80,17 +73,17 @@ ls
 - Unzip the Copied Zip File
 ```sh
 Syntax:- unzip zip_file_name
-Example:- unzip miniblog.zip
+Example:- unzip dynamic.zip
 ```
 - Move Project Folder from User Home to Web Server Public Directory
 ```sh
 Syntax:- sudo mv project_folder_name Destination_Path
-Example:- sudo mv miniblog /var/www
+Example:- sudo mv dynamic /var/www
 ```
 - Go to Your Project Directory
 ```sh
 Syntax:- cd /var/www/project_folder_name
-Example:- cd /var/www/miniblog
+Example:- cd /var/www/dynamic
 ```
 - Create Virtual env
 ```sh
@@ -102,21 +95,21 @@ Example:- virtualenv mb
 Syntax:- source virtualenv_name/bin/activate
 Example:- source mb/bin/activate
 ```
-- Install Dependencies
+- Go to your project folder and install Dependencies
 ```sh
 pip install -r requirements.txt
 ```
 - Create Virtual Host File
 ```sh
-sudo nano /etc/apache2/sites-available/your_domain.conf
+sudo nano /etc/apache2/sites-available/your_domain_name.conf
 ```
 - Add Following Code in Virtual Host File
 ```sh
 <VirtualHost *:80>
     ServerName www.example.com
     ServerAdmin contact@example.com
-    #Document Root is not required
-    #DocumentRoot /var/www/project_folder_name
+    DocumentRoot /var/www/project_folder_name
+    
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
     
@@ -156,7 +149,7 @@ sudo service apache2 restart
 ```
 - Open Django Project settings.py
 ```sh
-cd /var/www/miniblog/miniblog
+cd /var/www/dynamic/dynamic
 sudo nano settings.py
 ```
 - Make below changes
@@ -172,35 +165,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 ```sh
 sudo service apache2 restart
 ```
-- You can check error logs If you get any error:
-```sh
-cd /var/log
-su
-cd apache2
-cat error.log
-```
-- You can Clear Error Logs (Optional)
-```sh
-sudo bash -c 'echo > /var/log/apache2/error.log'
-```
-- If get Error mod_wsgi (pid=1234): Failed to proxy response from daemon then follow below instructions:
-- Open apache2.conf
-```sh
-cd /etc/apache2
-sudo nano apache2.conf
-```
-- Write below code in the bottom of apache2.conf file
-```sh
-WSGIApplicationGroup %{GLOBAL}
-```
-- To Know more about %{GLOBAL} follow this link: https://modwsgi.readthedocs.io/en/develop/configuration-directives/WSGIApplicationGroup.html
-- Restart Apache2
-```sh
-sudo service apache2 restart
-```
+
+---
+
+#### If Django loads but with errors ofcourse
+
 - Serve Static Files
 ```sh
-cd /var/www/miniblog
+cd /var/www/dynamic
 python manage.py collectstatic
 ```
 - Create Database Tables
@@ -247,7 +219,42 @@ sudo groups raj
 deactivate
 ```
 
-#### Special Tip: If you face error "Name duplicates previous WSGI daemon definition" while installing SSL Certificate for your domain then comment below code then try to install SSL Certificate again and after successful installation un-comment it 
+---
+
+#### Debugging 101
+
+- You can check error logs If you get any error:
+```sh
+cd /var/log/apache2/
+cat error.log
+```
+
+- You can Clear Error Logs (Optional)
+```sh
+sudo bash -c 'echo > /var/log/apache2/error.log'
+```
+
+> If get Error mod_wsgi (pid=1234): Failed to proxy response from daemon then follow below instructions:
+- Open apache2.conf
+```sh
+cd /etc/apache2
+sudo nano apache2.conf
+```
+- Write below code in the bottom of apache2.conf file
+```sh
+WSGIApplicationGroup %{GLOBAL}
+```
+- To Know more about %{GLOBAL} follow this link: https://modwsgi.readthedocs.io/en/develop/configuration-directives/WSGIApplicationGroup.html
+
+- Restart Apache2
+
+```sh
+sudo service apache2 restart
+```
+
+#### SSL Certificate Installation
+
+> If you face error "Name duplicates previous WSGI daemon definition" while installing SSL Certificate for your domain then comment below code then try to install SSL Certificate again and after successful installation un-comment it 
 ```sh
 cd /etc/apache2/sites-available/your_domain.conf
 
