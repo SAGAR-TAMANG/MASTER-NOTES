@@ -86,16 +86,32 @@ Example:- sudo mv dynamic /var/www
 Syntax:- cd /var/www/project_folder_name
 Example:- cd /var/www/dynamic
 ```
-- Create Virtual env
+
+---
+
+#### Creating a virtual environment
+- Install virtualenv
 ```sh
-Syntax:- virtualenv env_name
-Example:- virtualenv mb
+pip install virtualenv
 ```
-- Activate Virtual env
+
+- Go where you want to put your virtual env and then run the command below to create one
 ```sh
-Syntax:- source virtualenv_name/bin/activate
-Example:- source mb/bin/activate
+virtual env NAME
 ```
+
+- A new directory is created with the name you gave, that's your virtualenv folder
+- Activate virtualenv using the below command
+```sh
+source NAME/bin/activate
+```
+
+- If you want to deactivate, run the below command
+```sh
+deactivate
+```
+---
+
 - Go to your project folder and install Dependencies
 ```sh
 pip install -r requirements.txt
