@@ -7,29 +7,26 @@
 
 | Type | Host/Name | Value |
 | :---: | :---: | :--- |
-| A     | @     | Your Remote Server IP |
-| A     | www   | Your Remote Server IP |
-| AAAA  | @     | Your Remote Server IPv6 |
-| AAAA  | www   | Your Remote Server IPv6 |
+| A     | Your Subdomain Name | Your Remote Server IP |
+| AAAA  | Your Subdomain Name | Your Remote Server IPv6 |
 
 - On Local Windows Machine, Goto Your Project Folder then follow below instruction:
-- Create a folder in your root project directory then move database file inside this created directory e.g. mbdb/db.sqlite3
-- Open settings.py file then change sqlite db file path as it is now inside folder
-```sh
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'mbdb/db.sqlite3',
-    }
-}
-```
-- Save and Close settings.py file
 - Open Terminal
 - Activate Your virtual Env
-- Create requirements.txt File
+- Create requirements.txt File, by either using this:
 ```sh
-  pip freeze > requirements.txt
+pip freeze > requirements.txt
 ```
+- or by this:
+```
+$ pipreqs /home/project/location
+```
+
+> `Note: Pipreqs is generally recommended, but if you don't have it installed in the sysmte, do so by using:` 
+```
+pip install pipreqs
+```
+
 - Deactivate Virtual Env
 
 - On Local Windows Machine Make Your Project Folder a Zip File using any of the software e.g. winzip
