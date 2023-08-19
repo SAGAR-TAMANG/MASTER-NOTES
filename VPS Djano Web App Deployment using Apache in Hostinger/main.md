@@ -169,7 +169,7 @@ sudo service apache2 restart
 
 ---
 
-#### If Django loads but with errors ofcourse
+## If Django loads but with errors ofcourse
 
 - Serve Static Files
 ```sh
@@ -222,7 +222,7 @@ deactivate
 
 ---
 
-#### Debugging 101
+## Debugging 101
 
 - You can check error logs If you get any error:
 ```sh
@@ -253,7 +253,7 @@ WSGIApplicationGroup %{GLOBAL}
 sudo service apache2 restart
 ```
 
-#### SSL Certificate Installation
+## SSL Certificate Installation
 
 > If you face error "Name duplicates previous WSGI daemon definition" while installing SSL Certificate for your domain then comment below code then try to install SSL Certificate again and after successful installation un-comment it 
 ```sh
